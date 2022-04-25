@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <title> About Cafe Thea </title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+            :root {
+                --main-color: #EAA023;
+                --dark: #0C1023;
+                --dark-light: #191F3A;
+                --white: #FFFFFF;
+                --white-light: #C8C8C8;
+                --shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+                --cursive-font: 'Dancing Script', cursive;
+                scroll-behavior: smooth;
+            }
+
+            /* --- GLOBAL SETTINGS --- */  
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                outline: none;
+            }
+
+            ::before,
+            ::after {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-size: 16px;
+                line-height: 1.5;
+                -webkit-tap-highlight-color: transparent;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 300;
+                color: var(--white-light);
+                background-color: #24262b;
+
+            }
+
+            img {
+                vertical-align: middle;
+                max-width: 100%;
+            }
+
+            a {
+                text-decoration: none;
+            }
+
+            ul {
+                list-style: none;
+            }
+
+            h1 {
+                font-weight: 700;
+                color: var(--white);
+            }
+
+            h2 {
+                font-weight: 600;
+                color: var(--white);
+            }
+
+            h3,
+            h4,
+            h5,
+            h6 {
+                font-weight: 500;
+                color: var(--white);
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            .container {
+                max-width: 1170px;
+                margin: auto;
+            }
+
+            .row {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            
+            .justify-content-between {
+                justify-content: space-between;
+            }
+
+            .align-items-center {
+                align-items: center;
+            }
+
+            .min-vh-100 {
+                min-height: 100vh;
+            }
+
+            .sec-padding {
+                padding: 80px 0;
+            }
+
+            /* --- SECTION TITLE --- */
+            .section-title {
+                width: 100%;
+                padding: 0 15px;
+                text-align: center;
+                margin-bottom: 60px;
+            }
+
+            .section-title h2 {
+                font-size: 35px;
+                text-transform: capitalize;
+            }
+
+            .section-title h2::before {
+                content: attr(data-title);
+                display: block;
+                font-size: 24px;
+                color: var(--main-color);
+                font-family: var(--cursive-font);
+                font-weight: 400;
+                text-transform: capitalize;
+            }
+
+            /* --- BUTTON --- */
+            .btn {
+                display: inline-block;
+                padding: 10px 30px;
+                background-color: transparent;
+                border-radius: 30px;
+                text-transform: capitalize;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                font-size: 16px;
+                cursor: pointer;
+                font-family: inherit;
+                color: var(--main-color);
+                line-height: 1.5;
+                user-select: none;
+                border: none;
+            }
+
+            .btn-default {
+                border: 2px solid var(--main-color);
+            }
+
+            .btn-default:hover {
+                color: var(--white);
+                background-color: var(--main-color);
+            }
+
+            /* --- ANIMATION KEYFRAMES --- */
+            @keyframes zoomInOut {
+                0%, 100% {
+                    transform: scale(1);
+                }
+
+                50% {
+                    transform: scale(1.1);
+                }
+            }
+
+            @keyframes spin01 {
+                0% {
+                transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+
+            /* --- HEADER --- */
+            .header {
+                padding: 12px 0;
+
+                position: fixed;
+                left: 0;
+                top: 0;
+                z-index: 99;
+                width: 100%;
+            }
+
+            .header::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                background-color: var(--dark-light);
+                box-shadow: var(--shadow);
+                z-index: -1;
+                transition: transform 0.5 ease;
+                transform: translateY(-100%);
+            }
+
+            .header.sticky::before {
+                transform: translateY(0%);
+            }
+
+            .header .logo {
+                min-height: 34px;
+                display: flex;
+                align-items: center;
+                padding: 0 15px;
+            }
+
+            .header .nav-toggler {
+                height: 34px;
+                width: 44px;
+                margin-right: 15px;
+                cursor: pointer;
+                border: none;
+                background: transparent;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .header .nav-toggler.active {
+                position: absolute;
+                right: 0;
+                z-index: 1;
+                transition: all 0.5s ease;
+                transform: translateX(-200px);
+
+            }
+
+            .header .nav-toggler span {
+                height: 2px;
+                width: 30px;
+                display: block;
+                background-color:  var(--white);
+                position: relative;
+            }
+
+            .header .nav-toggler.active span {
+                background-color: transparent;
+                transition: background-color 0.5s ease;
+            }
+
+            .header .nav-toggler span::before,
+            .header .nav-toggler span::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                background-color: var(--white);
+            }
+
+            .header .nav-toggler span::before {
+                transform: translateY(-8px);
+            }
+
+            .header .nav-toggler.active span::before {
+                transform: rotate(45deg);
+                transition: transform 0.5s ease;
+            }
+
+            .header .nav-toggler span::after {
+                transform: translateY(8px);
+            }
+
+            .header .nav-toggler.active span::after {
+                transform: rotate(-45deg);
+                transition: transform 0.5s ease;
+            }
+
+            .header .nav {
+                position: fixed;
+                right: 0;
+                top: 0;
+                height: 100%;
+                width: 280px;
+                background-color: var(--dark-light);
+                box-shadow: var(--shadow);
+                overflow-y: auto;
+                padding: 80px 0 40px;
+                transition: transform 0.5s ease;
+                transform: translateX(100%);
+            }
+
+            .header .nav.open {
+                transform: translateX(0%);
+            }
+
+            .header .nav ul li a {
+                display: block;
+                font-size: 25px;
+                color: var(--white);
+                padding: 10px 30px;
+                text-transform: capitalize;
+                transition: color 0.3s ease;
+            }
+
+            .header .nav ul li a:hover {
+                color: var(--main-color);
+
+            }
+
+            /* --- HOME SECTION --- */
+            .home-section {
+                position: relative;
+                overflow: hidden;
+            }
+            .navbar .navbar-nav .nav-link {
+            color: #fff;
+        }
+
+            .home-section::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                background-color: #000000;
+                opacity: 0.7;
+                z-index: -1;
+            }
+
+            .home-section .home-bg {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                background-image: url('CafeTheaWebsite/Image/IMG_Home-BG.jpg');
+                background-attachment: fixed;
+                background-size: cover;
+                background-position: center;
+                z-index: -2;
+                animation: zoomInOut 15s ease infinite;
+            }
+
+            .home-section .min-vh-100 {
+                padding: 100px 0;
+            }
+
+            .home-text {
+                padding: 0 15px;
+                max-width: 700px;
+                width: 100%;
+                margin: auto;
+                text-align: center;
+            }
+
+            .home-text h1 {
+                font-family: var(--cursive-font);
+                font-size: 60px;
+                line-height: 75px;
+                margin: 0 0 5px;
+            }
+
+            .home-text p {
+                margin: 0 0 30px;
+            }
+
+            /* --- ABOUT SECTION --- */
+            .about-section {
+                background-color: var(--dark);
+            }
+
+            .about-text, 
+            .about-img {
+                width: 50%;
+                padding: 0 15px;
+            }
+
+            .about-text h3 {
+                font-size: 30px;
+                text-transform: capitalize;
+                margin: 0 0 15px;
+            }
+
+            .about-text p {
+                margin: 0 0 15px;
+            }
+
+            .about-text .btn {
+                margin: 15px 0 0;
+            }
+
+            .about-img img {
+                width: 100%;
+                border-radius: 10px;
+            }
+
+            .about-img .img-box {
+                position: relative;
+            }
+
+            .about-img .img-box:before {
+                content: '';
+                position: absolute;
+                height: 100px;
+                width: 100px;
+                border: 3px solid var(--main-color);
+                left: calc(50% - 50px);
+                top: calc(50% - 50px);
+                animation: spin01 10s linear infinite;
+            }
+
+            /* --- MENU SECTION --- */
+            .menu-section {
+                background-color: var(--dark);
+                padding-bottom: 60px;
+            }
+
+            .menu-section .section-title {
+                margin-bottom: 40px;
+            }
+
+            .menu-tabs {
+                padding: 0 15px;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            .menu-tab-item {
+                font-size: 18px;
+                font-family: inherit;
+                border: none;
+                background-color: transparent;
+                font-weight: 500;
+                color: var(--white);
+                cursor: pointer;
+                margin: 0 10px 10px;
+                transition: color 0.3s ease;
+                display: inline-block;
+            }
+
+            .menu-tab-item.active {
+                color: var(--main-color);
+            }
+
+            .menu-tab-content {
+                display: none;
+            }
+
+            .menu-tab-content.active {
+                display: flex;
+            }
+
+            .menu-item {
+                width: 50%;
+                padding: 20px 15px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                position: relative;
+            }
+
+            .menu-item::after {
+                content: '';
+                position: absolute;
+                left: 15px;
+                right: 15px;
+                bottom: 0;
+                border-bottom: 2px dashed var(--dark-light);
+            }
+
+            .menu-item:nth-last-of-type(2):after,
+            .menu-item:nth-last-of-type(1):after {
+                border: none;
+            }
+
+            .menu-item-title {
+                display: flex;
+                align-items: center;
+                max-width: calc(100% - 80px);
+            }
+
+            .menu-item-title h3 {
+                font-size: 16px;
+                text-transform: capitalize;
+                transition: color 0.3 ease;
+            }
+
+            .menu-item:hover .menu-item-title h3 {
+                color: var(--main-color);
+            }
+
+            .menu-item-title img {
+                max-width: 100px;
+                margin-right: 15px;
+            }
+
+            .menu-item-price {
+                font-size: 16px;
+                font-weight: 500;
+                color: var(--main-color);
+                transition: color 0.3 ease;
+            }
+
+            .menu-item:hover .menu-item-price {
+                color: var(--white);
+            }
+
+            /* --- TESTIMONIALS SECTION --- */
+            .testimonials-section {
+                background-color: var(--dark);
+                padding-bottom: 50px;
+            }
+
+            .testi-item {
+                width: calc((100% / 3) - 30px);
+                margin: 0 15px 30px;
+                border: 2px solid var(--dark-light);
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: var(--shadow);
+            }
+
+            .testi-author {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .testi-author h3 {
+                font-size: 16px;
+                text-transform: capitalize;
+                margin: 0 0 3px;
+            }
+
+            .testi-author span {
+                display: block;
+                font-size: 14px;
+                text-transform: capitalize;
+            }
+
+            .testi-author img {
+                max-width: 60px;
+                border-radius: 50%;
+                border: 3px solid var(--dark-light);
+                box-shadow: var(--shadow);
+                transition: border-color 0.5s ease;
+            }
+
+            .testi-item:hover .testi-author img {
+                border-color: var(--main-color);
+            }
+
+            .testi-item p {
+                margin: 15px 0;
+            }
+
+            .testi-item .ratings span{
+                font-size: 16px;
+                color: var(--main-color);
+            }
+
+            /* --- TEAM SECTION --- */
+            .team-section {
+                background-color: var(--dark);
+                padding-bottom: 125px;
+            }
+
+            .team-item {
+                width: calc(100% / 3);
+                padding: 0 15px;
+                position: relative;
+            }
+
+            .team-item img {
+                width: 100%;
+                border-radius: 8px;
+                transition: transform 0.3s ease;
+            }
+
+            .team-item:hover img {
+                transform: skewY(2deg);
+            }
+
+            .team-item-info {
+                background-color: var(--dark-light);
+                border-radius: 8px;
+                padding: 15px;
+                text-align: center;
+                position: absolute;
+                left: 30px;
+                right: 30px;
+                bottom: 0;
+                transform: translateY(50%);
+                transition: all 0.3s ease;
+                pointer-events: none;
+            }
+
+            .team-item:hover .team-item-info {
+                transform: translateY(-15px);
+                background-color: var(--main-color);
+            }
+
+            .team-item-info h3 {
+                font-size: 18px;
+                text-transform: capitalize;
+                margin: 0 0 10px;
+            }
+
+            .team-item-info p {
+                text-transform: capitalize;
+                transition: all 0.3s ease;
+            }
+
+            .team-item:hover .team-item-info p {
+                color: var(--white);
+            }
+
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+footer {
+	line-height: 1.5;
+	font-family: 'Poppins', sans-serif;
+}
+footer {
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+}
+.container1{
+	max-width: 1170px;
+	margin:auto;
+}
+.row{
+	display: flex;
+	flex-wrap: wrap;
+}
+ul{
+	list-style: none;
+}
+.footer{
+	background-color: #24262b;
+    padding: 70px 0;
+}
+.footer-col{
+   width: 25%;
+   padding: 0 15px;
+}
+.footer-col h4{
+	font-size: 18px;
+	color: #ffffff;
+	text-transform: capitalize;
+	margin-bottom: 35px;
+	font-weight: 500;
+	position: relative;
+}
+.footer-col h4::before{
+	content: '';
+	position: absolute;
+	left:0;
+	bottom: -10px;
+	background-color: #e91e63;
+	height: 2px;
+	box-sizing: border-box;
+	width: 50px;
+}
+.footer-col ul li:not(:last-child){
+	margin-bottom: 10px;
+}
+.footer-col ul li a{
+	font-size: 16px;
+	text-transform: capitalize;
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: 300;
+	color: #bbbbbb;
+	display: block;
+	transition: all 0.3s ease;
+}
+.footer-col ul li a:hover{
+	color: #ffffff;
+	padding-left: 8px;
+}
+.footer-col .social-links a{
+	display: inline-block;
+	height: 40px;
+	width: 40px;
+	background-color: rgba(255,255,255,0.2);
+	margin:0 10px 10px 0;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 50%;
+	color: #ffffff;
+	transition: all 0.5s ease;
+}
+.footer-col .social-links a:hover{
+	color: #24262b;
+	background-color: #ffffff;
+}
+
+/*responsive*/
+@media(max-width: 767px){
+  .footer-col{
+    width: 50%;
+    margin-bottom: 30px;
+}
+}
+@media(max-width: 574px){
+  .footer-col{
+    width: 100%;
+}
+}
+
+
+        </style>
+</head>
+
+<body>
+    <!--- (START) HEADER --->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark p-md-3">
+        <div class="container">
+          <a class="navbar-brand" href="Index.html"><img src="galh/IconLogo.png" alt="Cafe Thea" width=40px height=40px > Cafe Thea</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+  
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="mx-auto"></div>
+            <ul class="navbar-nav">
+              <li class="nav-item text-white">
+                <a class="nav-link" href="Index.html">Home</a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link" href="#">About</a>
+              </li>
+              <li class="nav-item text-white">
+                <a class="nav-link" href="gallery.html">Gallery</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Services</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="Catering.html">Catering</a></li>
+                  <li><a class="dropdown-item" href="Events.html">Events Area</a></li>
+                </ul>
+              </li>
+              <li class="nav-item text-white">
+                <a class="nav-link" href="Contact.html">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+            
+    <!--- (END) HEADER --->
+
+    <!--- (START) HOME SECTION --->
+    <section class="home-section" id="home">
+        <div class="home-bg">
+
+        </div>
+        <div class="container">
+            <div class="row min-vh-100 align-items-center">
+                <div class="home-text">
+                    <h1> Cafe Thea Restaurant </h1>
+                    <p>
+                        Cafe Thea is a food catering service based in Taguig that provides packed meals, hosted events, and catering services.
+                        The company then relocated its main branch to Taguig, where it would remain until today.
+                    </p>
+                    <a href="#about" class="btn btn-default"> About Us </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--- (END) HOME SECTION --->
+
+    <!--- (START) ABOUT SECTION --->
+    <section class="about-section sec-padding" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="section-title">
+                    <h2 data-title="our story" id="about"> About Us </h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="about-text">
+                    <h3> Welcome To  Cafe Thea Retaurant </h3>
+                    <p>
+                        Our company always seeks to provide the best possible experience to ensure that your special day is the best that it can be!
+                        <br>
+                        <br>
+                        Cafe Thea began as a humble family restaurant in Manila, run by five sisters who wished to share their food with the entire country. This restaurant served locales and tourists alike, providing home-cooked meals that were both nutritious and delicious.
+                        But in 2017, the sisters received an opportunity to expand. After several years of remaining as a small restaurant, the business finally grew to become a catering service that had more reach across the entirety of Manila.
+                    </p>
+                    <a href="Catering.html #menu" class="btn btn-default"> Check our Menu </a>
+                </div>
+                <div class="about-img">
+                    <div class="img-box">
+                        <img src="CafeTheaWebsite/Image/IMG_About.jpg" alt="About Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--- (END) ABOUT SECTION --->
+
+
+    <!--- (START) TESTIMONIALS SECTION --->
+    <section class="testimonials-section sec-padding" id="testimonials">
+        <div class="container">
+            <div class="row">
+                <div class="section-title">
+                    <h2 data-title="testimonials"> Some Feedbacks </h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="testi-item">
+                    <div class="testi-author">
+                        <div class="testi-author-name">
+                            <h3> Kristelle Gelina </h3>
+                            <span> Birthday Party </span>
+                        </div>
+                        <div class="testi-author-img">
+                             <img src="People/kris.jpg" alt="Testimonial">   
+                        </div>
+                    </div>
+                    <p>
+                        The food was excellent and the delivery was fast..arrived before the provided time of delivery.  I had the fish fillet with dip and the super creamy carbonara which was awesome. My colleague love the roast beef, garlic butter seafood, cordon bleu specially the macaroni salad! They were very generous with the amount of serving for every tray. Affordable and excellent food! Giving 5 stars!
+                    </p>
+                    <div class="ratings">
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                    </div>
+                </div>
+                <div class="testi-item">
+                    <div class="testi-author">
+                        <div class="testi-author-name">
+                            <h3> Tanya Laguing </h3>
+                            <span> Conference </span>
+                        </div>
+                        <div class="testi-author-img">
+                             <img src="People/tanya.jpg" alt="Testimonial">   
+                        </div>
+                    </div>
+                    <p>
+                        For a very friendly, convenient and perfect Catering Services and Supplies... In very short notice and pang malakasan.. Highly Recommended (one of a kind) di ka mapapahiya sa mga bisita.. Cafe Thea..
+                    </p>
+                    <div class="ratings">
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                    </div>
+                </div>
+                <div class="testi-item">
+                    <div class="testi-author">
+                        <div class="testi-author-name">
+                            <h3> Kate Alejandro-Gavero </h3>
+                            <span> Wedding </span>
+                        </div>
+                        <div class="testi-author-img">
+                             <img src="People/kate.jpg" alt="Testimonial">
+                        </div>
+                    </div>
+                    <p>
+                        Intimate Civil Wedding namin was last Dec. 28, 2021. The best po events place na'to dahil stress free talaga kami kahet simpleng wedding. Lahat organized, provided din nila yung design materials. Tsaka yung food wala ko masabi ang sasarap po nagustuhan din ng mga bisita. I highly recommend and give 5 stars to Cafe Thea and super bait po ng owner. Salamat po ng marami at sa lahat ng team. 
+                    </p>
+                    <div class="ratings">
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--- (END) TESTIMONIALS SECTION --->
+
+    <!--- (START) TEAM SECTION --->
+    <section class="team-section sec-padding" id="team">
+        <div class="container">
+            <div class="row">
+                <div class="section-title">
+                    <h2 data-title="team"> Behind the Scenes </h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="team-item">
+                    <img src="People/giselle.jpg" alt="">
+                    <div class="team-item-info">
+                        <h2> Giselle Calixto </h2>
+                        <p> CEO/Founder </p>
+                    </div>
+                </div>
+                <div class="team-item">
+                    <img src="People/maria.jpg" alt="">
+                    <div class="team-item-info">
+                        <h2> Maricel Mercado </h2>
+                        <p> Head Chef/Co-Founder </p>
+                    </div>
+                </div>
+                <div class="team-item">
+                    <img src="People/may.jpg" alt="">
+                    <div class="team-item-info">
+                        <h2> Mary Grace </h2>
+                        <p> General Manager </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--- (END) TEAM SECTION --->
+
+    <!--(START) FOOTER SECTION-->
+    <footer class="footer">
+        <div class="container1">
+          <div class="row">
+            <div class="footer-col">
+              <h4>Main</h4>
+              <ul>
+                <li><a href="Index.html">Home</a></li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="Contact.html">Contact</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Services</h4>
+              <ul>
+                <li><a href="Catering.html">Catering</a></li>
+                <li><a href="Events.html">Hosted Events</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>follow us</h4>
+              <div class="social-links">
+                <a href="https://www.facebook.com/Cafe-Thea-1770134716391192/"><i class="fab fa-facebook-f"></i></a>
+                <!--Place Holders as the company does not have accounts on these social media sites-->
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <!---->
+              </div>
+            </div>
+          </div>
+        </div>
+     </footer>
+     <!--(END) FOOTER SECTION-->>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="CafeTheaWebsite/JavaScript/Script.js"> </script>
+</body>
+</html>

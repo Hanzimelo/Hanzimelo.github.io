@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title> Untitled </title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+            :root {
+                --main-color: #EAA023;
+                --dark: #0C1023;
+                --dark-light: #191F3A;
+                --white: #FFFFFF;
+                --white-light: #C8C8C8;
+                --shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+                --cursive-font: 'Dancing Script', cursive;
+                scroll-behavior: smooth;
+            }
+
+            /* --- GLOBAL SETTINGS --- */  
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                outline: none;
+            }
+
+            ::before,
+            ::after {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-size: 16px;
+                line-height: 1.5;
+                -webkit-tap-highlight-color: transparent;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 300;
+                color: var(--white-light);
+
+            }
+
+            img {
+                vertical-align: middle;
+                max-width: 100%;
+            }
+
+            a {
+                text-decoration: none;
+            }
+
+            ul {
+                list-style: none;
+            }
+
+            h1 {
+                font-weight: 700;
+                color: var(--white);
+            }
+
+            h2 {
+                font-weight: 600;
+                color: var(--white);
+            }
+
+            h3,
+            h4,
+            h5,
+            h6 {
+                font-weight: 500;
+                color: var(--white);
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            .container {
+                max-width: 1170px;
+                margin: auto;
+            }
+
+            .row {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            
+            .justify-content-between {
+                justify-content: space-between;
+            }
+
+            .align-items-center {
+                align-items: center;
+            }
+
+            .min-vh-100 {
+                min-height: 100vh;
+            }
+
+            .sec-padding {
+                padding: 80px 0;
+            }
+
+            /* --- SECTION TITLE --- */
+            .section-title {
+                width: 100%;
+                padding: 0 15px;
+                text-align: center;
+                margin-bottom: 60px;
+            }
+
+            .section-title h2 {
+                font-size: 35px;
+                text-transform: capitalize;
+            }
+
+            .section-title h2::before {
+                content: attr(data-title);
+                display: block;
+                font-size: 24px;
+                color: var(--main-color);
+                font-family: var(--cursive-font);
+                font-weight: 400;
+                text-transform: capitalize;
+            }
+
+            /* --- BUTTON --- */
+            .btn {
+                display: inline-block;
+                padding: 10px 30px;
+                background-color: transparent;
+                border-radius: 30px;
+                text-transform: capitalize;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                font-size: 16px;
+                cursor: pointer;
+                font-family: inherit;
+                color: var(--main-color);
+                line-height: 1.5;
+                user-select: none;
+                border: none;
+            }
+
+            .btn-default {
+                border: 2px solid var(--main-color);
+            }
+
+            .btn-default:hover {
+                color: var(--white);
+                background-color: var(--main-color);
+            }
+
+            /* --- ANIMATION KEYFRAMES --- */
+            @keyframes zoomInOut {
+                0%, 100% {
+                    transform: scale(1);
+                }
+
+                50% {
+                    transform: scale(1.1);
+                }
+            }
+
+            @keyframes spin01 {
+                0% {
+                transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+
+            /* --- HEADER --- */
+            .header {
+                padding: 12px 0;
+
+                position: fixed;
+                left: 0;
+                top: 0;
+                z-index: 99;
+                width: 100%;
+            }
+
+            .header::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                background-color: var(--dark-light);
+                box-shadow: var(--shadow);
+                z-index: -1;
+                transition: transform 0.5 ease;
+                transform: translateY(-100%);
+            }
+
+            .header.sticky::before {
+                transform: translateY(0%);
+            }
+
+            .header .logo {
+                min-height: 34px;
+                display: flex;
+                align-items: center;
+                padding: 0 15px;
+            }
+
+            .header .nav-toggler {
+                height: 34px;
+                width: 44px;
+                margin-right: 15px;
+                cursor: pointer;
+                border: none;
+                background: transparent;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .header .nav-toggler.active {
+                position: absolute;
+                right: 0;
+                z-index: 1;
+                transition: all 0.5s ease;
+                transform: translateX(-200px);
+
+            }
+
+            .header .nav-toggler span {
+                height: 2px;
+                width: 30px;
+                display: block;
+                background-color:  var(--white);
+                position: relative;
+            }
+
+            .header .nav-toggler.active span {
+                background-color: transparent;
+                transition: background-color 0.5s ease;
+            }
+
+            .header .nav-toggler span::before,
+            .header .nav-toggler span::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                background-color: var(--white);
+            }
+
+            .header .nav-toggler span::before {
+                transform: translateY(-8px);
+            }
+
+            .header .nav-toggler.active span::before {
+                transform: rotate(45deg);
+                transition: transform 0.5s ease;
+            }
+
+            .header .nav-toggler span::after {
+                transform: translateY(8px);
+            }
+
+            .header .nav-toggler.active span::after {
+                transform: rotate(-45deg);
+                transition: transform 0.5s ease;
+            }
+
+            .header .nav {
+                position: fixed;
+                right: 0;
+                top: 0;
+                height: 100%;
+                width: 280px;
+                background-color: var(--dark-light);
+                box-shadow: var(--shadow);
+                overflow-y: auto;
+                padding: 80px 0 40px;
+                transition: transform 0.5s ease;
+                transform: translateX(100%);
+            }
+
+            .header .nav.open {
+                transform: translateX(0%);
+            }
+
+            .header .nav ul li a {
+                display: block;
+                font-size: 25px;
+                color: var(--white);
+                padding: 10px 30px;
+                text-transform: capitalize;
+                transition: color 0.3s ease;
+            }
+
+            .header .nav ul li a:hover {
+                color: var(--main-color);
+
+            }
+
+            /* --- HOME SECTION --- */
+            .home-section {
+                position: relative;
+                overflow: hidden;
+            }
+
+            .home-section::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                background-color: #000000;
+                opacity: 0.7;
+                z-index: -1;
+            }
+
+            .home-section .home-bg {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                background-image: url('Image/IMG_Home-BG.jpg');
+                background-attachment: fixed;
+                background-size: cover;
+                background-position: center;
+                z-index: -2;
+                animation: zoomInOut 15s ease infinite;
+            }
+
+            .home-section .min-vh-100 {
+                padding: 100px 0;
+            }
+
+            .home-text {
+                padding: 0 15px;
+                max-width: 700px;
+                width: 100%;
+                margin: auto;
+                text-align: center;
+            }
+
+            .home-text h1 {
+                font-family: var(--cursive-font);
+                font-size: 60px;
+                line-height: 75px;
+                margin: 0 0 5px;
+            }
+
+            .home-text p {
+                margin: 0 0 30px;
+            }
+
+            /* --- ABOUT SECTION --- */
+            .about-section {
+                background-color: var(--dark);
+            }
+
+            .about-text, 
+            .about-img {
+                width: 50%;
+                padding: 0 15px;
+            }
+
+            .about-text h3 {
+                font-size: 30px;
+                text-transform: capitalize;
+                margin: 0 0 15px;
+            }
+
+            .about-text p {
+                margin: 0 0 15px;
+            }
+
+            .about-text .btn {
+                margin: 15px 0 0;
+            }
+
+            .about-img img {
+                width: 100%;
+                border-radius: 10px;
+            }
+
+            .about-img .img-box {
+                position: relative;
+            }
+
+            .about-img .img-box:before {
+                content: '';
+                position: absolute;
+                height: 100px;
+                width: 100px;
+                border: 3px solid var(--main-color);
+                left: calc(50% - 50px);
+                top: calc(50% - 50px);
+                animation: spin01 10s linear infinite;
+            }
+
+            /* --- MENU SECTION --- */
+            .menu-section {
+                background-color: var(--dark);
+                padding-bottom: 60px;
+            }
+
+            .menu-section .section-title {
+                margin-bottom: 40px;
+            }
+
+            .menu-tabs {
+                padding: 0 15px;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            .menu-tab-item {
+                font-size: 18px;
+                font-family: inherit;
+                border: none;
+                background-color: transparent;
+                font-weight: 500;
+                color: var(--white);
+                cursor: pointer;
+                margin: 0 10px 10px;
+                transition: color 0.3s ease;
+                display: inline-block;
+            }
+
+            .menu-tab-item.active {
+                color: var(--main-color);
+            }
+
+            .menu-tab-content {
+                display: none;
+            }
+
+            .menu-tab-content.active {
+                display: flex;
+            }
+
+            .menu-item {
+                width: 50%;
+                padding: 20px 15px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                position: relative;
+            }
+
+            .menu-item::after {
+                content: '';
+                position: absolute;
+                left: 15px;
+                right: 15px;
+                bottom: 0;
+                border-bottom: 2px dashed var(--dark-light);
+            }
+
+            .menu-item:nth-last-of-type(2):after,
+            .menu-item:nth-last-of-type(1):after {
+                border: none;
+            }
+
+            .menu-item-title {
+                display: flex;
+                align-items: center;
+                max-width: calc(100% - 80px);
+            }
+
+            .menu-item-title h3 {
+                font-size: 16px;
+                text-transform: capitalize;
+                transition: color 0.3 ease;
+            }
+
+            .menu-item:hover .menu-item-title h3 {
+                color: var(--main-color);
+            }
+
+            .menu-item-title img {
+                max-width: 100px;
+                margin-right: 15px;
+            }
+
+            .menu-item-price {
+                font-size: 16px;
+                font-weight: 500;
+                color: var(--main-color);
+                transition: color 0.3 ease;
+            }
+
+            .menu-item:hover .menu-item-price {
+                color: var(--white);
+            }
+
+            /* --- TESTIMONIALS SECTION --- */
+            .testimonials-section {
+                background-color: var(--dark);
+                padding-bottom: 50px;
+            }
+
+            .testi-item {
+                width: calc((100% / 3) - 30px);
+                margin: 0 15px 30px;
+                border: 2px solid var(--dark-light);
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: var(--shadow);
+            }
+
+            .testi-author {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .testi-author h3 {
+                font-size: 16px;
+                text-transform: capitalize;
+                margin: 0 0 3px;
+            }
+
+            .testi-author span {
+                display: block;
+                font-size: 14px;
+                text-transform: capitalize;
+            }
+
+            .testi-author img {
+                max-width: 60px;
+                border-radius: 50%;
+                border: 3px solid var(--dark-light);
+                box-shadow: var(--shadow);
+                transition: border-color 0.5s ease;
+            }
+
+            .testi-item:hover .testi-author img {
+                border-color: var(--main-color);
+            }
+
+            .testi-item p {
+                margin: 15px 0;
+            }
+
+            .testi-item .ratings span{
+                font-size: 16px;
+                color: var(--main-color);
+            }
+
+            /* --- TEAM SECTION --- */
+            .team-section {
+                background-color: var(--dark);
+                padding-bottom: 125px;
+            }
+
+            .team-item {
+                width: calc(100% / 3);
+                padding: 0 15px;
+                position: relative;
+            }
+
+            .team-item img {
+                width: 100%;
+                border-radius: 8px;
+                transition: transform 0.3s ease;
+            }
+
+            .team-item:hover img {
+                transform: skewY(2deg);
+            }
+
+            .team-item-info {
+                background-color: var(--dark-light);
+                border-radius: 8px;
+                padding: 15px;
+                text-align: center;
+                position: absolute;
+                left: 30px;
+                right: 30px;
+                bottom: 0;
+                transform: translateY(50%);
+                transition: all 0.3s ease;
+                pointer-events: none;
+            }
+
+            .team-item:hover .team-item-info {
+                transform: translateY(-15px);
+                background-color: var(--main-color);
+            }
+
+            .team-item-info h3 {
+                font-size: 18px;
+                text-transform: capitalize;
+                margin: 0 0 10px;
+            }
+
+            .team-item-info p {
+                text-transform: capitalize;
+                transition: all 0.3s ease;
+            }
+
+            .team-item:hover .team-item-info p {
+                color: var(--white);
+            }
+
+        </style>
+</head>
+
+<body>
+    <!--- (START) HEADER --->
+    <div class="header">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="logo">
+
+                </div>
+
+                <nav class="nav">
+                    <ul>
+                        <li class="nav-item">
+                            <a href="">
+                                Untitled
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="">
+                                Untitled
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="">
+                                Untitled
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="">
+                                Untitled
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="">
+                                
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="">
+                                
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!--- (END) HEADER --->
+
+    <!--- (START) HOME SECTION --->
+    <section class="home-section" id="home">
+        <div class="home-bg">
+
+        </div>
+        <div class="container">
+            <div class="row min-vh-100 align-items-center">
+                <div class="home-text">
+                    <h1> Cafe Thea Restaurant </h1>
+                    <p>
+                        Cafe Thea is a food catering service based in Taguig that provides packed meals, hosted events, and catering services.
+                        The company then relocated its main branch to Taguig, where it would remain until today.
+                    </p>
+                    <a href="#" class="btn btn-default"> About Us </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--- (END) HOME SECTION --->
+
+    <!--- (START) ABOUT SECTION --->
+    <section class="about-section sec-padding" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="section-title">
+                    <h2 data-title="our story"> About Us </h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="about-text">
+                    <h3> Welcome To  Cafe Thea Retaurant </h3>
+                    <p>
+                        Our company always seeks to provide the best possible experience to ensure that your special day is the best that it can be!
+                        <br>
+                        <br>
+                        Cafe Thea began as a humble family restaurant in Manila, run by five sisters who wished to share their food with the entire country. This restaurant served locales and tourists alike, providing home-cooked meals that were both nutritious and delicious.
+                        But in 2017, the sisters received an opportunity to expand. After several years of remaining as a small restaurant, the business finally grew to become a catering service that had more reach across the entirety of Manila.
+                    </p>
+                    <a href="#" class="btn btn-default"> Check our Menu </a>
+                </div>
+                <div class="about-img">
+                    <div class="img-box">
+                        <img src="Image/IMG_About.jpg" alt="About Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--- (END) ABOUT SECTION --->
+
+    <!--- (START) MENU SECTION --->
+    <section class="menu-section sec-padding" id="our-menu">
+        <div class="container">
+            <div class="row">
+                <div class="section-title">
+                    <h2 data-title="order now"> Featured in Our Menu </h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="menu-tabs">
+                    <button type="button" class="menu-tab-item active" data-target="#lunch"> Lunch </button>
+                    <button type="button" class="menu-tab-item" data-target="#dinner"> Dinner </button>
+                    <button type="button" class="menu-tab-item" data-target="#drinks"> Drinks </button>
+                    <button type="button" class="menu-tab-item" data-target="#desserts"> Desserts </button>
+                </div>
+            </div>
+
+            <div class="row menu-tab-content active" id="lunch">
+                <div class="menu-item">
+                    <div class="menu-item-title">
+                        <img src="Image/Menu/IMG_001.jpg" alt="Menu Item Thumbnail">
+                        <h3> Lunch Item </h3>
+                    </div>
+                    <div class="menu-item-price">
+                        ₱100.00
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-title">
+                        <img src="Image/Menu/IMG_002.jpg" alt="Menu Item Thumbnail">
+                        <h3> Lunch Item </h3>
+                    </div>
+                    <div class="menu-item-price">
+                        ₱100.00
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-title">
+                        <img src="Image/Menu/IMG_003.jpg" alt="Menu Item Thumbnail">
+                        <h3> Lunch Item </h3>
+                    </div>
+                    <div class="menu-item-price">
+                        ₱100.00
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-title">
+                        <img src="Image/Menu/IMG_004.jpg" alt="Menu Item Thumbnail">
+                        <h3> Lunch Item </h3>
+                    </div>
+                    <div class="menu-item-price">
+                        ₱100.00
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-title">
+                        <img src="Image/Menu/IMG_005.jpg" alt="Menu Item Thumbnail">
+                        <h3> Lunch Item </h3>
+                    </div>
+                    <div class="menu-item-price">
+                        ₱100.00
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-title">
+                        <img src="Image/Menu/IMG_006.jpg" alt="Menu Item Thumbnail">
+                        <h3> Lunch Item </h3>
+                    </div>
+                    <div class="menu-item-price">
+                        ₱100.00
+                    </div>
+                </div>
+            </div> <!--- (END) Lunch--->
+
+            <div class="row menu-tab-content" id="dinner">
+                <div class="menu-item">
+                    <div class="menu-item-title">
+                        <img src="Image/Menu/IMG_001.jpg" alt="Menu Item Thumbnail">
+                        <h3> Dinner Item </h3>
+                    </div>
+                    <div class="menu-item-price">
+                        ₱100.00
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-title">
+                        <img src="Image/Menu/IMG_002.jpg" alt="Menu Item Thumbnail">
+                        <h3> Dinner Item </h3>
+                    </div>
+                    <div class="menu-item-price">
+                        ₱100.00
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-title">
+                        <img src="Image/Menu/IMG_003.jpg" alt="Menu Item Thumbnail">
+                        <h3> Dinner Item </h3>
+                    </div>
+                    <div class="menu-item-price">
+                        ₱100.00
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-title">
+                        <img src="Image/Menu/IMG_004.jpg" alt="Menu Item Thumbnail">
+                        <h3> Dinner Item </h3>
+                    </div>
+                    <div class="menu-item-price">
+                        ₱100.00
+                    </div>
+                </div>
+                
+            </div> <!--- (END) DINNER--->
+
+            <div class="row menu-tab-content" id="drinks">
+                <div class="menu-item">
+                    <div class="menu-item-title">
+                        <img src="Image/Menu/IMG_001.jpg" alt="Menu Item Thumbnail">
+                        <h3> Drinks Item </h3>
+                    </div>
+                    <div class="menu-item-price">
+                        ₱100.00
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-title">
+                        <img src="Image/Menu/IMG_002.jpg" alt="Menu Item Thumbnail">
+                        <h3> Drinks Item </h3>
+                    </div>
+                    <div class="menu-item-price">
+                        ₱100.00
+                    </div>
+                </div>
+            </div>
+
+            <div class="row menu-tab-content" id="desserts">
+                <div class="menu-item">
+                    <div class="menu-item-title">
+                        <img src="Image/Menu/IMG_001.jpg" alt="Menu Item Thumbnail">
+                        <h3> Deserts Item </h3>
+                    </div>
+                    <div class="menu-item-price">
+                        ₱100.00
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-title">
+                        <img src="Image/Menu/IMG_002.jpg" alt="Menu Item Thumbnail">
+                        <h3> Deserts Item </h3>
+                    </div>
+                    <div class="menu-item-price">
+                        ₱100.00
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--- (END) MENU SECTION --->
+
+    <!--- (START) TESTIMONIALS SECTION --->
+    <section class="testimonials-section sec-padding" id="testimonials">
+        <div class="container">
+            <div class="row">
+                <div class="section-title">
+                    <h2 data-title="testimonials"> Some Feedbacks </h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="testi-item">
+                    <div class="testi-author">
+                        <div class="testi-author-name">
+                            <h3> Raj Himachal </h3>
+                            <span> Food Specialist </span>
+                        </div>
+                        <div class="testi-author-img">
+                             <img src="Image/IMG_001.jpg" alt="">   
+                        </div>
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum ducimus dolor atque tenetur itaque dolorem molestias. Iusto voluptate quos ipsam cum sit repellendus tenetur facere, exercitationem minima molestiae illum laborum?
+                    </p>
+                    <div class="ratings">
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                    </div>
+                </div>
+                <div class="testi-item">
+                    <div class="testi-author">
+                        <div class="testi-author-name">
+                            <h3> Raj Himachal </h3>
+                            <span> Food Specialist </span>
+                        </div>
+                        <div class="testi-author-img">
+                             <img src="Image/IMG_002.jpg" alt="">   
+                        </div>
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum ducimus dolor atque tenetur itaque dolorem molestias. Iusto voluptate quos ipsam cum sit repellendus tenetur facere, exercitationem minima molestiae illum laborum?
+                    </p>
+                    <div class="ratings">
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                    </div>
+                </div>
+                <div class="testi-item">
+                    <div class="testi-author">
+                        <div class="testi-author-name">
+                            <h3> Raj Himachal </h3>
+                            <span> Food Specialist </span>
+                        </div>
+                        <div class="testi-author-img">
+                             <img src="Image/IMG_003.jpg" alt="">
+                        </div>
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum ducimus dolor atque tenetur itaque dolorem molestias. Iusto voluptate quos ipsam cum sit repellendus tenetur facere, exercitationem minima molestiae illum laborum?
+                    </p>
+                    <div class="ratings">
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                        <span class="fa fa-star"> </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--- (END) TESTIMONIALS SECTION --->
+
+    <!--- (START) TEAM SECTION --->
+    <section class="team-section sec-padding" id="team">
+        <div class="container">
+            <div class="row">
+                <div class="section-title">
+                    <h2 data-title="team"> Our Chefs </h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="team-item">
+                    <img src="Image/IMG_Team-01.jpg" alt="">
+                    <div class="team-item-info">
+                        <h2> Raj Himachal </h2>
+                        <p> Head Chef </p>
+                    </div>
+                </div>
+                <div class="team-item">
+                    <img src="Image/IMG_Team-02.jpg" alt="">
+                    <div class="team-item-info">
+                        <h2> Raj Himachal </h2>
+                        <p> Head Chef </p>
+                    </div>
+                </div>
+                <div class="team-item">
+                    <img src="Image/IMG_Team-03.jpg" alt="">
+                    <div class="team-item-info">
+                        <h2> Raj Himachal </h2>
+                        <p> Head Chef </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--- (END) TEAM SECTION --->
+
+    <script src="JavaScript/Script.js"> </script>
+</body>
+</html>
